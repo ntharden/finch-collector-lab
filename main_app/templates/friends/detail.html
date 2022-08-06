@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link 
+  rel="stylesheet" 
+  type="text/css" 
+  href="{% static 'css/friends/friend-detail.css' %}"
+/>
+{% endblock %}
+
+{% block content %}
+
+<section class="friend-container">
+  <div class="friend-img">
+    <img 
+      src="{% static 'images/joey.png' %}" 
+      alt="Joey"
+    >
+  </div>
+  <div class="friend-details">
+    <h1>{{ friend.name }}</h1>
+    <h2>This friend is a {{ friend.job }}</h2>
+    <p>{{ friend.description }}</p>
+  </div>
+</section>
+
+{% endblock %}

@@ -24,17 +24,19 @@
 <section class="card-container">
   {% for friend in friends %}
     <div class="card">
-      <div class="card-content">
-        <div class="card-img-container">
-          <img 
-            src="{% static 'images/joey.png' %}" 
-            alt="Joey"
-          >
+      <a href='{% url 'friends_detail' friend.id %}'
+        <div class="card-content">
+          <div class="card-img-container">
+            <img 
+              src="{% static 'images/joey.png' %}" 
+              alt="Joey"
+            >
+          </div>
+          <h2 class="card-title">{{ friend.name }}</h2>
+          <p>A {{ friend.name }} is a {{ friend.job }}</p>
+          <p><small>{{ friend.description }}</small></p>
         </div>
-        <h2 class="card-title">{{ friend.name }}</h2>
-        <p>A {{ friend.name }} is a {{ friend.job }}</p>
-        <p><small>{{ friend.description }}</small></p>
-      </div>
+      </a>
     </div>
   {% endfor %}
 </section>
