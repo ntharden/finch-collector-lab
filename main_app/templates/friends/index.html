@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link 
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'css/friends/friend-index.css' %}"
+/>
+{% endblock %}
+
+{% block content %}
+
+<section class="page-header">
+  <h1>Friend List</h1>
+  <img src="{% static 'images/joey.png' %}" alt="Joey" />
+  <img src="{% static 'images/rachel.png' %}" alt="Rachel" />
+  <img src="{% static 'images/ross.png' %}" alt="Ross" />
+  <img src="{% static 'images/monica.png' %}" alt="Monica" />
+  <img src="{% static 'images/phoebe.png' %}" alt="Phoebe" />
+  <img src="{% static 'images/chandler.png' %}" alt="Chandler" />
+</section>
+
+<section class="card-container">
+  {% for friend in friends %}
+    <div class="card">
+      <div class="card-content">
+        <div class="card-img-container">
+          <img 
+            src="{% static 'images/joey.png' %}" 
+            alt="Joey"
+          >
+        </div>
+        <h2 class="card-title">{{ friend.name }}</h2>
+        <p>A {{ friend.name }} is a {{ friend.job }}</p>
+        <p><small>{{ friend.description }}</small></p>
+      </div>
+    </div>
+  {% endfor %}
+</section>
+
+{% endblock %}

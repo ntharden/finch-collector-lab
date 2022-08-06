@@ -1,15 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-# Create your views here.
-def home(request):
-  return HttpResponse('<h1>Hello ᓚᘏᗢ</h1>')
-
-def about(request):
-  return render(request, 'about.html')
-
 class Friend:
-  def __init__(self, name, job, description)
+  def __init__(self, name, job, description):
     self.name = name
     self.job = job
     self.description = description
@@ -22,3 +15,12 @@ friends = [
   Friend('Chandler', 'accountant', 'Dance is my life.'),
   Friend('Monica', 'chef', 'Neat and organized.'),
 ]
+
+def home(request):
+  return render(request, 'home.html')
+
+def about(request):
+  return render(request, 'about.html')
+
+def friends_index(request):
+  return render(request, 'friends/index.html', { 'friends': friends })
