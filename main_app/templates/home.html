@@ -8,13 +8,24 @@
 {% block content %}
 
 <section class="logo-container">
-  <div class="cat-container">
-    <img src="{% static 'images/splash.svg' %}" alt="The Friend Collector Friend" />
+  <div class="friend-container">
+    <img src="{% static 'images/favicon.png' %}" alt="The Friend Collector Friend" />
   </div>
   <img 
-    src="{% static 'images/logotype.svg' %}" 
+    src="{% static 'images/header-logo.png' %}" 
     alt="Text reads: Freind Collector"
   />
 </section>
+{% if not user.is_authenticated %}
+  <section>
+    <form action="{% url 'home' %}" method="post" class="login">
+      <h1>Login</h1>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="hidden" name="next" value="{{ next }}">
+      <button type="submit" class="btn submit">Login</button>
+    </form>
+  </section>
+{% endif %}
 
 {% endblock %}

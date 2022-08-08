@@ -24,7 +24,7 @@
   margin-top: 20px;
 }
 
-.orders-toy-container {
+.orders-friend-container {
   display: flex;
   flex-direction: column;
   padding-bottom: 20px;
@@ -41,7 +41,7 @@
   margin: 0 8px;
 }
 
-.toy-container {
+.friend-container {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -56,19 +56,19 @@
 
 .unfed,
 .fed,
-.no-toys,
-.all-toys {
+.no-friends,
+.all-friends {
   margin: 0;
   font-weight: bold;
 }
 
 .unfed,
-.no-toys {
+.no-friends {
   color: var(--danger);
 }
 
 .fed,
-.all-toys {
+.all-friends {
   color: var(--submit);
 }
 
@@ -94,7 +94,7 @@
   margin: 5px 0;
 }
 
-.orders-toy-container > section {
+.orders-friend-container > section {
   width: 80%;
   min-width: 360px;
   border: var(--borders);
@@ -117,13 +117,13 @@
 }
 
 .orders h2,
-.toys h2 {
+.friends h2 {
   font-size: 3.2rem;
   margin: 0;
 }
 
 .orders h3,
-.toys h3 {
+.friends h3 {
   font-size: var(--font-xl);
   margin: 10px 0;
 }
@@ -162,16 +162,16 @@
   background-color: #f3f3fd;
 }
 
-.toy-container p {
+.friend-container p {
   margin: 12px 0;
 }
 
-.toy-container a {
+.friend-container a {
   text-decoration: none;
   color: #111;
 }
 
-.toy-container .btn {
+.friend-container .btn {
   padding: 3px 10px;
   margin-left: 10px;
 }
@@ -201,19 +201,19 @@
     margin-right: 25px;
   }
 
-  .orders-toy-container {
+  .orders-friend-container {
     flex-direction: row;
     justify-content: space-around;
     align-items: flex-start;
   }
 
-  .orders-toy-container > section {
+  .orders-friend-container > section {
     width: 45%;
   }
 }
 
 @media only screen and (min-width: 1024px) {
-  .orders-toy-container {
+  .orders-friend-container {
     padding: 0 40px;
   }
 }

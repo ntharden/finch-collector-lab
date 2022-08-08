@@ -2,6 +2,7 @@ from ast import FloorDiv
 from django.db import models
 from django.urls import reverse
 from datetime import date
+from django.contrib.auth.models import User
 
 DRINKS = (
   ('C','Coffee'),
@@ -26,6 +27,7 @@ class Friend(models.Model):
   job = models.CharField(max_length=50)
   description = models.TextField(max_length=250)
   items = models.ManyToManyField(Item)
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
   def __str__(self):
     return self.name
   def get_absolute_url(self):
