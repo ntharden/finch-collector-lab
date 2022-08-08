@@ -13,4 +13,6 @@ urlpatterns = [
   path('items/create/', views.ItemCreate.as_view(), name='items_create'),
   path('items/<int:pk>/', views.ItemDetail.as_view(), name='items_detail'),
   path('items/', views.ItemList.as_view(), name='items_index'),
+  path('items/<int:pk>/update/', views.ItemUpdate.as_view(), name='items_update'),
+  path('items/<int:pk>/delete/', views.ItemDelete.as_view(), name='items_delete'),
 ]
