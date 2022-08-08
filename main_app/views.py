@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Friend
+from django.views.generic import ListView, DetailView
+from .models import Friend, Item
 from .forms import OrderForm
 
 class Friend:
@@ -22,6 +23,16 @@ class FriendDelete(DeleteView):
   model = Friend
   success_url = '/friends/'
   
+class ItemCreate(CreateView):
+  model = Item
+  fields = '__all__'
+
+class ItemList(ListView):
+  model = Item
+
+class ItemDetail(DetailView):
+  model = Item
+
 friends = [
   Friend('Joey', 'doctor/actor', 'Likes girls. Loves to eat.'),
   Friend('Phoebe', 'masseuse', 'In touch with the supernatural.'),

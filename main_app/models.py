@@ -41,3 +41,11 @@ class Order(models.Model):
     return f"{self.get_drink_display()} to drink and {self.food()} to eat on {self.date}"
   class Meta:
     ordering = ['-date']
+
+class Item(models.Model):
+  name = models.CharField(max_length=50)
+  color = models.CharField(max_length=20)
+  def __str__(self):
+    return self.name
+  def get_absolute_url(self):
+    return reverse('items_detail', kwargs={'pk': self.id})

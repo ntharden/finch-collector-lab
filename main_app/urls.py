@@ -10,4 +10,7 @@ urlpatterns = [
   path('friends/update/', views.FriendUpdate.as_view(), name='friends_update'),
   path('friends/delete/', views.FriendDelete.as_view(), name='friends_delete'),
   path('friends/<int:friend_id>/add_order/', views.add_order, name='add_order'),
+  path('items/create/', views.ItemCreate.as_view(), name='items_create'),
+  path('items/<int:pk>/', views.ItemDetail.as_view(), name='items_detail'),
+  path('items/', views.ItemList.as_view(), name='items_index'),
 ]
