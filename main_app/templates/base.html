@@ -26,14 +26,15 @@
       <a href="/">
         <img 
           src="{% static 'images/header-logo.png' %}"
-          alt="The Cat Collector Logo"
+          alt="The Friend Collector Logo"
         >
       </a>
     </div>
     <nav>
       <ul>
-        <li><a href="/friends">All Friends</a></li>
-        <li><a href="/about">About</a></li>
+        <li><a href="{% url 'friends_index' %}">All Friends</a></li>
+        <li><a href="{% url 'friends_create' %}">All a Friend</a></li>
+        <li><a href="{% url 'about' %}">About</a></li>
       </ul>
     </nav>
   </header>

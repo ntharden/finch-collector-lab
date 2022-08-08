@@ -3,10 +3,20 @@
 
 {% block head %}
 <link 
+  href="https://cdn.jsdelivr.net/npm/mc-datepicker/dist/mc-calendar.min.css" 
+  rel="stylesheet" 
+/>
+<link rel="stylesheet" href="{% static 'css/mcdp.css' %}">
+<script 
+  src="https://cdn.jsdelivr.net/npm/mc-datepicker/dist/mc-calendar.min.js"
+>
+</script>
+<link 
   rel="stylesheet" 
   type="text/css" 
   href="{% static 'css/friends/friend-detail.css' %}"
 />
+<script defer src="{% static 'js/cat-detail.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -24,5 +34,60 @@
     <p>{{ friend.description }}</p>
   </div>
 </section>
+<div class="orders-container">
+  <section class="orders">
+    <div class="subsection-title">
+      <h2>Orders</h2>
+      <img 
+        src="{% static 'images/joey.png' %}" 
+        alt="Joey"
+      />
+      <img 
+        src="{% static 'images/joey.png' %}"
+        alt="Joey"
+      />
+      <img 
+        src="{% static 'images/joey.png' %}" 
+        alt="Joey"
+      />
+    </div>
+    <h3>Add an Order</h3>
+    <form
+      action="{% url 'add_order' friend.id %}" 
+      method="post" 
+      class="subsection-content"
+    >
+      {% if cat.fed_for_today %}
+        <p class="fed">{{cat.name}} has been fed all their meals for today!</p>
+      {% else %}
+        <p class="unfed">{{cat.name}} might be hungry!</p>
+      {% endif %}
+      {% csrf_token %}
+      {{ order_form.as_p }}
+      <button type="submit" class="btn submit">Add Order</button>
+    </form>
+    <h3>Past Orders</h3>
+    {% if friend.order_set.all.count %}
+      <table>
+        <thead>
+          <tr><th>Date</th><th>Drink</th><th>Food</th></tr>
+        </thead>
+        <tbody>
+          {% for order in friend.order_set.all %}
+          <tr>
+            <td>{{order.date}}</td>
+            <td>{{order.get_drink_display}}</td>
+            <td>{{order.get_food_display}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+			<div class="subsection-content">
+        <p>{{friend.name}} doesn't have previous orders</p>
+      </div>
+    {% endif %}
+  </section>
+</div>
 
 {% endblock %}

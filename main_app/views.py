@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Friend
+from .forms import OrderForm
 
 class Friend:
   def __init__(self, name, job, description):
@@ -7,6 +9,19 @@ class Friend:
     self.job = job
     self.description = description
 
+class FriendCreate(CreateView):
+  model = Friend
+  fields = '__all__'
+  success_url = '/friends/'
+
+class FriendUpdate(UpdateView):
+  model = Friend
+  fields = '__all__'
+
+class FriendDelete(DeleteView):
+  model = Friend
+  success_url = '/friends/'
+  
 friends = [
   Friend('Joey', 'doctor/actor', 'Likes girls. Loves to eat.'),
   Friend('Phoebe', 'masseuse', 'In touch with the supernatural.'),
@@ -28,4 +43,18 @@ def friends_index(request):
 
 def friends_detail(request, friend_id):
   friend = Friend.objects.get(id=friend_id)
-  return render(request, 'friends/detail.html', { 'friend': friend })
+  order_form = OrderForm()
+  return render(
+    request,
+    'friends/detail.html',
+    { 'friend': friend },
+    { 'order_form': order_form }
+  )
+
+def add_order(request, friend_id):
+  form = OrderForm(request.POST)
+  if form.is_valid():
+    new_order.friend_id = form.save(commit=False)
+    new_order.friend_id = friend_id
+    new_order.save()
+  return redirect('friends_detail', friend_id=friend_id)
