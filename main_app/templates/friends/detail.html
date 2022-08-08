@@ -16,7 +16,7 @@
   type="text/css" 
   href="{% static 'css/friends/friend-detail.css' %}"
 />
-<script defer src="{% static 'js/cat-detail.js' %}"></script>
+<script defer src="{% static 'js/friend-detail.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -57,10 +57,10 @@
       method="post" 
       class="subsection-content"
     >
-      {% if cat.fed_for_today %}
-        <p class="fed">{{cat.name}} has been fed all their meals for today!</p>
+      {% if friend.ordered_for_today %}
+        <p class="fed">{{friend.name}} has eaten all their meals for today!</p>
       {% else %}
-        <p class="unfed">{{cat.name}} might be hungry!</p>
+        <p class="unfed">{{friend.name}} might be hungry!</p>
       {% endif %}
       {% csrf_token %}
       {{ order_form.as_p }}
@@ -87,6 +87,56 @@
         <p>{{friend.name}} doesn't have previous orders</p>
       </div>
     {% endif %}
+  </section>
+  <section class="items">
+    <div class="subsection-title">
+      <h2>Items</h2>
+      <img src="{% static 'images/joey.png' %}" alt="Joey" />
+      <img src="{% static 'images/joey.png' %}" alt="Joey" />
+      <img src="{% static 'images/joey.png' %}" alt="Joey" />
+    </div>
+    <h3>{{ friend.name }}'s items</h3>
+    <div class="subsection-content">
+      {% if friend.items.count %}
+        {% for item in friend.items.all %}
+          <div class="item-container">
+            <div 
+              class="color-block"
+              style="background-color: {{ item.color }}"
+            ></div>
+            <a href="{% url 'items_detail' item.id %}">
+              <p>A {{ item.color }} {{ item.name }}</p>
+            </a>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class="no-items">{{friend.name}} doesn't have any items 😞</p>
+      {% endif %}
+    </div>
+    <h3>Available Items</h3>
+    <div class="subsection-content">
+      {% if items.count %}
+        {% for item in items.all %}
+          <div class="item-container">
+            <div 
+              class="color-block"
+              style="background-color: {{ item.color }}"
+            ></div>
+            <a href="{% url 'items_detail' item.id %}">
+              <p>A {{ item.color }} {{ item.name }}</p>
+            </a>
+            <form action="{% url 'assoc_item' friend.id item.id %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn submit">Give item</button>
+            </form>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class="all-items">
+          {{friend.name}} already has all the available items 🥳
+        </p>
+      {% endif %}
+    </div>
   </section>
 </div>
 

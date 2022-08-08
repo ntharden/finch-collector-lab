@@ -12,7 +12,7 @@ class Friend:
 
 class FriendCreate(CreateView):
   model = Friend
-  fields = '__all__'
+  fields = ['name', 'job', 'description']
   success_url = '/friends/'
 
 class FriendUpdate(UpdateView):
@@ -32,6 +32,14 @@ class ItemList(ListView):
 
 class ItemDetail(DetailView):
   model = Item
+
+class ItemUpdate(UpdateView):
+  model = Item
+  fields = ['name', 'color']
+
+class ItemDelete(DeleteView):
+  model = Item
+  success_url = '/items/'
 
 friends = [
   Friend('Joey', 'doctor/actor', 'Likes girls. Loves to eat.'),
@@ -54,12 +62,14 @@ def friends_index(request):
 
 def friends_detail(request, friend_id):
   friend = Friend.objects.get(id=friend_id)
+  items_friend_doesnt_have = Friend.objects.exclude(id__in = friend.items.all().values_list('id'))
   order_form = OrderForm()
   return render(
     request,
     'friends/detail.html',
     { 'friend': friend },
-    { 'order_form': order_form }
+    { 'order_form': order_form },
+    { 'items': items_friend_doesnt_have }
   )
 
 def add_order(request, friend_id):
@@ -68,4 +78,8 @@ def add_order(request, friend_id):
     new_order.friend_id = form.save(commit=False)
     new_order.friend_id = friend_id
     new_order.save()
+  return redirect('friends_detail', friend_id=friend_id)
+
+def assoc_item(request, friend_id, item_id):
+  Friend.objects.get(id=friend_id).items.add(item_id)
   return redirect('friends_detail', friend_id=friend_id)
